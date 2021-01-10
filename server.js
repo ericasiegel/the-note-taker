@@ -24,6 +24,13 @@ function findById(id, notesArray) {
     return result;
 }
 
+// function to find the specific note by it's id number and delete it
+function deleteById(id, notesArray) {
+    const deleteNote = notesArray.filter(note => note.id === id)[0];
+    notesArray.splice(deleteNote, 1);
+
+}
+
 // function to create new notes
 function createNewNote(body, notesArray) {
     const note = body;
@@ -80,10 +87,17 @@ app.post('/api/notes', (req, res) => {
         //add the note to the json file
         const note = createNewNote(req.body, notes);
 
-        res.json(req.body);
+        res.json(note);
     }
 
 });
+
+// delete request to delete note from json array
+app.delete('/api/notes/:id', (req, res) => {
+    const deleteID = deleteById(req.params.id, notes);
+    res.json(deleteID);
+
+})
 
 // html route to get index.html to the server
 app.get('/', (req, res) => {
