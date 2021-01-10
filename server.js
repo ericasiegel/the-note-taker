@@ -15,6 +15,8 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
 app.use(express.json());
+// make all public files available to the express server
+app.use(express.static('public'));
 
 // function to find the specific note by it's id number
 function findById(id, notesArray) {
@@ -81,6 +83,16 @@ app.post('/api/notes', (req, res) => {
         res.json(req.body);
     }
 
+});
+
+// html route to get index.html to the server
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+// html route to get notes.html to the server
+app.get('/notes', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/notes.html'));
 });
 
 app.listen(PORT, () => {
