@@ -30,8 +30,9 @@ router.post('/notes', (req, res) => {
     } else {
         //add the note to the json file
         const note = createNewNote(req.body, notes);
-
+        
         res.json(note);
+        
     }
 
 });
@@ -40,7 +41,7 @@ router.post('/notes', (req, res) => {
 router.delete('/notes/:id', (req, res) => {
     const deleteID = deleteById(req.params.id, notes);
     res.json(deleteID);
-
+    
 });
 
 module.exports = router;
